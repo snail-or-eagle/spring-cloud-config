@@ -1,0 +1,31 @@
+server:
+  port: 9001
+spring:
+  application:
+    name: service-product
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/shop?useUnicode=true&characterEncoding=utf8&useSSL=false
+    username: root
+    password: root
+  jpa:
+    database: MySQL
+    show-sql: true
+    open-in-view: true
+#配置 Eureka
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:9000/eureka/,http://localhost:8000/eureka/
+  instance:
+    prefer-ip-address: true #使用 IP 地址注册
+    instance-id: ${spring.cloud.client.ip-address}:${server.port} #向注册中心注册服务 id
+    lease-renewal-interval-in-seconds: 15 #心跳时间 30
+    lease-expiration-duration-in-seconds: 45 #续约到期时间 90
+logging:
+  level:
+    root: info
+    org.springframework.web.servlet.DispatcherServlet: debug
+    org.springframework.cloud.sleuth: debug
+name: itcast-pro
+
